@@ -1,6 +1,6 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
-
+let perfix = "!!"
 const bot = new Discord.Client({disableEveryone: true});
 
 bot.on("ready", async () => {
@@ -8,11 +8,22 @@ bot.on("ready", async () => {
     bot.user.setGame("EVR-RP System");
 });
 
+
+bot.on('message', message =>{
+  if(message.content === '$ping'){
+let start = Date.now(); message.channel.send('pong').then(message => {
+message.edit(`\`\`\`js
+Time taken: ${Date.now() - start} ms
+Discord API: ${client.ping.toFixed(0)} ms\`\`\``);
+  });
+  }
+});
+
 bot.on("message", async message => {
     if(message.author.bot)return;
     if(message.channel.type === "dm") return;
 
-    let perfix = botconfig.perfix
+    let perfix = "!!"
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
@@ -27,7 +38,7 @@ bot.on("message", async message => {
     if(message.author.bot)return;
     if(message.channel.type === 'dm') return;
 
-    let perfix = botconfig.perfix
+    let perfix = "!!"
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
